@@ -1,7 +1,7 @@
+import { query as q } from 'faunadb';
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import { fauna } from '../../../services/fauna';
-import { query as q } from 'faunadb';
 
 export default NextAuth({
   providers: [
@@ -28,8 +28,11 @@ export default NextAuth({
             q.Not(
               q.Exists(
                 q.Match(
+                  // search by email
                   q.Index('user_by_email'),
-                  q.Casefold(user.email)
+
+                  // transoform to lowercase
+                  q.Casefold(user.email),
                 ),
               ),
             ),
@@ -38,9 +41,12 @@ export default NextAuth({
             }),
             q.Get(
               q.Match(
-                q.Index('user_by_email'), 
-                q.Casefold(user.email)
-              )
+                // search by email
+                q.Index('user_by_email'),
+
+                // transoform to lowercase
+                q.Casefold(user.email),
+              ),
             ),
           ),
         );
