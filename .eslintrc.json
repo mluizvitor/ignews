@@ -6,7 +6,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -22,8 +23,8 @@
     ],
     "rules": {
         "indent": [
-            "error",
-            2
+            "error", 2,
+            {"SwitchCase": 1}
         ],
         "linebreak-style": [
             "error",
@@ -37,6 +38,9 @@
             "error",
             "always"
         ],
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "no-case-declarations": "off",
+        "function-paren-newline": ["error", "multiline-arguments"],
+        "brace-style": ["error", "1tbs", {"allowSingleLine": true}]
     }
 }
